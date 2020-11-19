@@ -2,9 +2,6 @@ package library.app.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
@@ -14,10 +11,6 @@ import lombok.Setter;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter @Setter public abstract class Person {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long _id;
 	
 	@Basic(optional = false)
 	@Column(name = "NAME", nullable = false, length = 15)

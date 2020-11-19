@@ -16,31 +16,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "USERS")
-@Getter @Setter public class User extends Person {
-
+@Table(name = "LIBRARIES")
+@Getter @Setter public class Library {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long _id;
 	
-	public enum Rol { Admin, Standard }
-
 	@Basic(optional = false)
-	@Column(name = "DNI", nullable = false, length = 9, unique = true)
-	private String dni;
+	@Column(name = "TITLE", nullable = false, length = 40)
+	private String name;
 	
 	@Basic(optional = false)
-	@Column(name = "AGE", nullable = false)
-	private int age;
+	@Column(name = "TITLE", nullable = false, length = 40)
+	private String location;
 	
-	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
-	private List<Lending> lendings;
+	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "library")
+	private List<Book> books;
+	
+	protected Library() {
+	}
 
-	public User(String name, String midName, String lastName, String dni, int age, List<Lending> lendings) {
-		super(name, midName, lastName);
-		this.dni = dni;
-		this.age = age;
-		this.lendings = lendings;
+	public Library(String name, String location) {
+
+		this.name = name;
+		this.location = location;
 	}
 }
