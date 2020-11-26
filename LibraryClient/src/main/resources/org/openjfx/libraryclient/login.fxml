@@ -1,76 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0"
-	xmlns="http://javafx.com/javafx/11.0.1"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="org.openjfx.libraryclient.LoginController">
+<VBox alignment="CENTER" style="-fx-background-color: black;" styleClass="layout" stylesheets="@css/DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.libraryclient.LoginController">
 	<children>
-		<HBox alignment="CENTER_RIGHT">
+      <ImageView pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/start_img.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" spacing="20.0">
+         <children>
+      		<HBox alignment="CENTER_RIGHT">
+      			<children>
+      				<Label text="User" textFill="#7c7c7c">
+      					<font>
+      						<Font size="14.0" />
+      					</font>
+      					<HBox.margin>
+      						<Insets right="10.0" />
+      					</HBox.margin>
+      				</Label>
+      				<TextField fx:id="userTxtField">
+      					<font>
+      						<Font size="14.0" />
+      					</font>
+      				</TextField>
+      			</children>
+      		</HBox>
+      		<HBox alignment="CENTER_RIGHT">
+      			<children>
+      				<Label text="Password" textFill="#7c7c7c">
+      					<font>
+      						<Font size="14.0" />
+      					</font>
+      					<HBox.margin>
+      						<Insets right="10.0" />
+      					</HBox.margin>
+      				</Label>
+      				<TextField fx:id="passwordTxtField" accessibleRole="PASSWORD_FIELD">
+      					<font>
+      						<Font size="14.0" />
+      					</font>
+      				</TextField>
+      			</children>
+      		</HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+		<HBox alignment="CENTER" spacing="40.0">
 			<children>
-				<Label text="User">
-					<font>
-						<Font size="14.0" />
-					</font>
-					<HBox.margin>
-						<Insets right="10.0" />
-					</HBox.margin>
-				</Label>
-				<TextField fx:id="userTxtField">
-					<font>
-						<Font size="14.0" />
-					</font>
-				</TextField>
+            <JFXButton fx:id="login" ripplerFill="WHITE" style="-fx-background-color: gold;" text=" Login " textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Separator orientation="VERTICAL" />
+            <JFXButton fx:id="exit" ripplerFill="WHITE" style="-fx-background-color: gold;" text=" Exit " textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
 			</children>
-		</HBox>
-		<HBox alignment="CENTER_RIGHT" layoutX="30.0" layoutY="30.0">
-			<children>
-				<Label text="Password">
-					<font>
-						<Font size="14.0" />
-					</font>
-					<HBox.margin>
-						<Insets right="10.0" />
-					</HBox.margin>
-				</Label>
-				<TextField fx:id="passwordTxtField"
-					accessibleRole="PASSWORD_FIELD">
-					<font>
-						<Font size="14.0" />
-					</font>
-				</TextField>
-			</children>
-		</HBox>
-		<HBox alignment="CENTER">
-			<children>
-				<Button fx:id="loginBtn" onAction="#switchToSecondary"
-					text="Login">
-					<font>
-						<Font size="14.0" />
-					</font>
-					<HBox.margin>
-						<Insets right="10.0" />
-					</HBox.margin>
-				</Button>
-				<Button fx:id="exitBtn" mnemonicParsing="false" text="Exit">
-					<font>
-						<Font size="14.0" />
-					</font>
-					<HBox.margin>
-						<Insets left="10.0" />
-					</HBox.margin>
-				</Button>
-			</children>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
 		</HBox>
 	</children>
-	<padding>
-		<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-	</padding>
 </VBox>
