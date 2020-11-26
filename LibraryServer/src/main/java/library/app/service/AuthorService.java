@@ -16,11 +16,11 @@ public class AuthorService {
 		return repository.findAll();
 	}
 
-	public void insertBook(Author author) {
+	public void addAuthor(Author author) {
 		repository.save(author);
 	}
 
-	public void deleteBook(Author author) {
+	public void deleteAuthor(Author author) {
 		repository.delete(author);
 	}
 }

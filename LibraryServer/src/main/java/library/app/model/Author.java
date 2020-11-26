@@ -3,7 +3,6 @@ package library.app.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,9 +20,9 @@ import lombok.Setter;
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long _id;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<Book> books;
-
+	
 	public Author(String name, String midName, String lastName) {
 		super(name, midName, lastName);
 	}

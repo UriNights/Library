@@ -24,11 +24,11 @@ import lombok.Setter;
 	private long _id;
 	
 	@Basic(optional = false)
-	@Column(name = "TITLE", nullable = false, length = 40)
+	@Column(name = "NAME", nullable = false, length = 40)
 	private String name;
 	
 	@Basic(optional = false)
-	@Column(name = "TITLE", nullable = false, length = 40)
+	@Column(name = "LOCATION", nullable = false, length = 40)
 	private String location;
 	
 	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "library")

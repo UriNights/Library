@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +30,7 @@ import lombok.Setter;
 	@Column(name = "TITLE", nullable = false, length = 40)
 	private String title;
 	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "books")
+	@ManyToMany(mappedBy = "books")
 	private List<Author> authors;
 	
 	@Basic(optional = false)

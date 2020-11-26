@@ -1,7 +1,6 @@
 package library.app.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,15 +23,16 @@ import lombok.Setter;
 	private long _id;
 	
     @Column(name = "LENDING_DATE", updatable = false, nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate lendingDate;
     
     @Column(name = "PERIOD", updatable = false, nullable = false)
     private int period;
     
     @Column(name = "RETURNED_DATE", updatable = false, nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate returnedDate;
+    
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active;
     
     @ManyToOne
     @JoinColumn(name = "USER_FK")
@@ -52,6 +50,7 @@ import lombok.Setter;
 		this.lendingDate = lendingDate;
 		this.period = period;
 		this.returnedDate = returnedDate;
+		this.active = true;
 		this.user = user;
 		this.book = book;
 	}
