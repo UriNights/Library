@@ -8,4 +8,6 @@ import library.app.model.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 	
 	Iterable<Person> findByName(String name);
+	
+	User findByNickAndPasswordEquals(String nick, String password);
 }

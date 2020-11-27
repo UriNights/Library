@@ -1,5 +1,7 @@
 package library.app.restcontroller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,11 @@ public class UserRest {
 	@GetMapping("/users")
 	public Iterable<User> findAll() {
 		return userService.findAll();
+	}
+	
+	@PostMapping(path="/login", consumes="application/json")
+	public User loginUser(@RequestBody Map<String, String> userAndPass) {
+		return userService.loginUser(userAndPass.get("nick"), userAndPass.get("password"));
 	}
 	
 	@PostMapping(path="/new_user", consumes="application/json")

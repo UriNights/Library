@@ -1,16 +1,6 @@
-package library.app.model;
+package org.openjfx.libraryclient.model;
 
 import java.util.List;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,10 +15,6 @@ import lombok.Setter;
 	private long _id;
 	
 	public enum Rol { Admin, Standard }
-	
-	@Basic(optional = false)
-	@Column(name = "NICK", nullable = false, length = 15)
-	private String nick;
 	
 	@Basic(optional = false)
 	@Column(name = "PASSWORD", nullable = false, length = 10)
@@ -49,9 +35,8 @@ import lombok.Setter;
 		super(name, midName, lastName);
 	}
 
-	public User(String name, String midName, String lastName, String nick, String password, String dni, int age, List<Lending> lendings) {
+	public User(String name, String midName, String lastName, String password, String dni, int age, List<Lending> lendings) {
 		super(name, midName, lastName);
-		this.nick = nick;
 		this.password = password;
 		this.dni = dni;
 		this.age = age;

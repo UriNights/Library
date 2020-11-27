@@ -28,4 +28,8 @@ public class UserService {
 	public void deleteUser(User user) {
 		repository.delete(user);
 	}
+
+	public User loginUser(String nick, String password) {
+		return repository.findByNickAndPasswordEquals(nick, password);
+	}
 }
