@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "AUTHORS")
-@Getter @Setter public class Author extends Person {
+@Getter @Setter public class Author extends Person{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

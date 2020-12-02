@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "BOOKS")
-@Getter @Setter public class Book {
+@Getter @Setter public class Book{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

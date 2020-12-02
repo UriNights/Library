@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.libraryclient.controller.MainWinController">
    <top>
@@ -21,8 +22,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton style="-fx-background-color: white;" text="Admin" GridPane.columnIndex="1" />
-            <Label text="user name" />
+            <JFXButton fx:id="isAdmin" style="-fx-background-color: white;" text="Admin" visible="false" GridPane.columnIndex="1" />
+            <Label fx:id="userName">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
          <padding>
             <Insets left="10.0" right="5.0" />
@@ -33,15 +37,15 @@
       <JFXListView BorderPane.alignment="CENTER" />
    </center>
    <left>
-      <VBox prefWidth="120.0" spacing="5.0" style="-fx-background-color: black;" styleClass="leftcolumn" BorderPane.alignment="CENTER">
+      <VBox prefWidth="120.0" spacing="1.0" style="-fx-background-color: black;" styleClass="leftcolumn" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="Active Lendings">
+            <JFXButton fx:id="activeLendings" maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: yellow; -fx-background-radius: 0;" text="Active Lendings">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton layoutX="10.0" layoutY="15.0" maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="Past Lendings" />
-            <JFXButton layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="New Lending" />
+            <JFXButton fx:id="pastLendings" layoutX="10.0" layoutY="15.0" maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="Past Lendings" />
+            <JFXButton fx:id="newLendings" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="New Lending" />
          </children>
       </VBox>
    </left>

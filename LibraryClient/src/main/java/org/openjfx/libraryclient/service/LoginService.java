@@ -1,18 +1,15 @@
 package org.openjfx.libraryclient.service;
 
-import org.openjfx.libraryclient.utilities.NetClientGet;
+import java.io.IOException;
+
+import org.openjfx.libraryclient.model.User;
+import org.openjfx.libraryclient.utilities.NetClient;
 
 public class LoginService {
-	
-	private NetClientGet netClientGet;
-	
-	public LoginService() {
-		
-		this.netClientGet = new NetClientGet();
-	}
 
-	public void checkUserAndPassword(String text, String text2) {
-		// TODO Auto-generated method stub
+	public User checkUser(String nick, String password) throws IOException {
 		
+		String jSonString = "{\"nick\":\"" + nick + "\",\"password\":\"" + password + "\"}";
+		return (User) NetClient.POST_Request("login", jSonString, "user");
 	}
 }

@@ -9,5 +9,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	
 	Iterable<Person> findByName(String name);
 	
-	User findByNickAndPasswordEquals(String nick, String password);
+	User findByNick(String nick);
 }

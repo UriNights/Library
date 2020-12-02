@@ -23,7 +23,7 @@ public class BookService {
 	
 
 	public Iterable<Book> findByAuthor(Author author) {
-		return repository.findByAuthor(author);
+		return repository.findByAuthors(author);
 	}
 
 	public void addBook(Book book) {

@@ -24,7 +24,10 @@ import lombok.Setter;
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long _id;
 	
-	public enum Rol { Admin, Standard }
+	private enum Rol { ADMIN, STANDARD };
+	@Basic(optional = false)
+	@Column(name = "ROL", nullable = false)
+	private Rol rol;
 	
 	@Basic(optional = false)
 	@Column(name = "NICK", nullable = false, length = 15)
@@ -45,12 +48,16 @@ import lombok.Setter;
 	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
 	private List<Lending> lendings;
 	
+	public User() {
+	}
+	
 	public User(String name, String midName, String lastName) {
 		super(name, midName, lastName);
 	}
 
 	public User(String name, String midName, String lastName, String nick, String password, String dni, int age, List<Lending> lendings) {
 		super(name, midName, lastName);
+		this.rol = Rol.ADMIN;
 		this.nick = nick;
 		this.password = password;
 		this.dni = dni;

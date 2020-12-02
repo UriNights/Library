@@ -8,6 +8,6 @@ import library.app.model.Book;
 public interface BookRepository extends CrudRepository<Book, Long> {
 	
 	Iterable<Book> findByTitle(String title);
-
-	Iterable<Book> findByAuthor(Author author);
+	
+	Iterable<Book> findByAuthors(Author authors);
 }
