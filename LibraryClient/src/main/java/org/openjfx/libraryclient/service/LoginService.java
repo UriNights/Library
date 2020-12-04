@@ -10,6 +10,6 @@ public class LoginService {
 	public User checkUser(String nick, String password) throws IOException {
 		
 		String jSonString = "{\"nick\":\"" + nick + "\",\"password\":\"" + password + "\"}";
-		return (User) NetClient.POST_Request("login", jSonString, "user");
+		return (User) NetClient.POST_Request("/login", jSonString, "user");
 	}
 }

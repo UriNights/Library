@@ -35,6 +35,7 @@ public class UserRest {
 	
 	@PostMapping(path="/new_user", consumes="application/json")
 	public void addUser(@RequestBody User user) {
+		System.out.println(user.getName() + " " + user.getMidName());
 		userService.addUser(user);
 	}
 	
@@ -46,8 +47,8 @@ public class UserRest {
 	
 	// Reservations from user. Active, past and new one
 	@PostMapping(path="/user/active_lendings", consumes="application/json")
-	public Iterable<Lending> activeLendings(@RequestBody User user) {
-		return lendService.activeLendings(user);
+	public Iterable<Lending> activeLendings(@RequestBody Map<String, Long> _id) {
+		return lendService.activeLendings(_id.get("_id"));
 	}
 	
 	@PostMapping(path="/user/past_lendings", consumes="application/json")

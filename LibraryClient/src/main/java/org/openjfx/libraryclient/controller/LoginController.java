@@ -25,6 +25,7 @@ public class LoginController {
 	
 	@FXML private void initialize() {
 		loginService = new LoginService();
+		login.setDefaultButton(true);
 	}
 	
     @FXML
@@ -43,7 +44,6 @@ public class LoginController {
     			Alert alert = new Alert(AlertType.WARNING);
     			alert.setTitle("Bad login");
     			alert.setHeaderText("Wrong user or password.");
-
     			alert.showAndWait();
     		}
     	}

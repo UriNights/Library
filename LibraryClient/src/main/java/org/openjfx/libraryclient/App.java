@@ -33,6 +33,7 @@ public class App extends Application {
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
         stage.setTitle("myLibrary - " + user.getName());
+        stage.sizeToScene();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

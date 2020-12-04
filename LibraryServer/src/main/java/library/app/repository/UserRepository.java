@@ -10,4 +10,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Iterable<Person> findByName(String name);
 	
 	User findByNick(String nick);
+	
+	User findBy_id(Long _id);
 }
