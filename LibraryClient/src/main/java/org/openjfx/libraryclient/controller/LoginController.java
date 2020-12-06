@@ -20,12 +20,11 @@ public class LoginController {
 	@FXML private TextField userTxtField;
 	@FXML private TextField passwordTxtField;
 	
-	@FXML private Button login;
+	@FXML private Button loginBtn;
 	@FXML private Button exit;
 	
 	@FXML private void initialize() {
 		loginService = new LoginService();
-		login.setDefaultButton(true);
 	}
 	
     @FXML
@@ -37,7 +36,7 @@ public class LoginController {
     		
     		if (user.getName() != null) {
     			
-    			App.setUser(user);
+        		App.setUser(user);
     			App.setRoot("mainWin");
     		} else {
     			

@@ -3,6 +3,9 @@ package org.openjfx.libraryclient.controller;
 import java.io.IOException;
 
 import org.openjfx.libraryclient.App;
+import org.openjfx.libraryclient.model.Author;
+import org.openjfx.libraryclient.model.Book;
+import org.openjfx.libraryclient.model.Genre;
 import org.openjfx.libraryclient.model.User;
 import org.openjfx.libraryclient.model.User.Rol;
 import org.openjfx.libraryclient.service.MainWinService;
@@ -15,7 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -25,8 +28,9 @@ public class MainWinController {
 
 	private User user;
 	private MainWinService mainWinService;
-
-	@FXML private Button isAdmin;
+	
+	@FXML private Label userName;
+	@FXML private Label isAdmin;
 	@FXML private Pane adminBtns;
 
 	@FXML private JFXButton activeLendingBtn;
@@ -47,10 +51,32 @@ public class MainWinController {
 	@FXML private JFXTextField txtUserAge;
 	@FXML private JFXTextField txtUserNick;
 	@FXML private JFXTextField txtUserPassword;
-	@FXML private ChoiceBox<Rol> rolList;
+	@FXML private ComboBox<Rol> rolList;
 	@FXML private TableView<User> usersTable;
-
-	@FXML private Label userName;
+	@FXML private JFXButton addUserBtn;
+	
+	@FXML private JFXButton librariesBtn;
+	@FXML private Pane librariesPanel;
+	@FXML private JFXTextField txtLibName;
+	@FXML private JFXTextField txtLibLocation;
+	@FXML private JFXButton addLibBtn;
+	
+	@FXML private JFXButton booksBtn;
+	@FXML private Pane booksPanel;
+	@FXML private JFXTextField txtTitle;
+	@FXML private ComboBox<Author> authorsList;
+	@FXML private JFXTextField txtISBN;
+	@FXML private JFXTextField txtPages;
+	@FXML private ComboBox<Genre> genreList;
+	@FXML private TableView<Book> booksTable;
+	@FXML private JFXButton addBookBtn;
+	
+	@FXML private JFXButton authorsBtn;
+	@FXML private Pane authorsPanel;
+	@FXML private JFXTextField txtAuthorName;
+	@FXML private JFXTextField txtAuthorMidname;
+	@FXML private JFXTextField txtAuthorLastname;
+	@FXML private JFXButton addAuthorBtn;
 
 	private JFXButton activeBtn;
 	private Pane activePanel;
@@ -73,11 +99,19 @@ public class MainWinController {
 		this.lendPanel.setViewOrder(0);
 		this.newLendPanel.setViewOrder(1);
 		this.usersPanel.setViewOrder(1);
-		
+		this.librariesPanel.setViewOrder(1);
+		this.booksPanel.setViewOrder(1);
+		this.authorsPanel.setViewOrder(1);
+				
 		ObservableList<Rol> observListRols = FXCollections.observableArrayList(User.Rol.list());
 		this.rolList.setItems(observListRols);
+		
+		ObservableList<Genre> observListGenres = FXCollections.observableArrayList(Genre.list());
+		this.genreList.setItems(observListGenres);
 	}
 
+	
+	// Menu buttons
 	private void menuBtnAction(JFXButton btn, Pane panel) {
 
 		if (btn != this.activeBtn) {
@@ -88,10 +122,9 @@ public class MainWinController {
 			panel.setViewOrder(0);
 			this.activePanel.setViewOrder(1);
 			this.activePanel = panel;
-
 		}
 	}
-
+	
 	@FXML
 	private void activeLendingClick() {
 		this.menuBtnAction(activeLendingBtn, lendPanel);
@@ -112,7 +145,23 @@ public class MainWinController {
 		this.menuBtnAction(usersBtn, usersPanel);
 		this.mainWinService.listUsers(this.usersTable);
 	}
+	
+	@FXML
+	private void librariesClick() throws IOException {
+		this.menuBtnAction(librariesBtn, librariesPanel);
+	}
+	
+	@FXML
+	private void booksClick() throws IOException {
+		this.menuBtnAction(booksBtn, booksPanel);
+	}
 
+	@FXML
+	private void authorsClick() throws IOException {
+		this.menuBtnAction(authorsBtn, authorsPanel);
+	}
+	
+	// User menu
 	@FXML
 	private void addNewUser() throws IOException {
 

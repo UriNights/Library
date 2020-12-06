@@ -1,5 +1,10 @@
 package org.openjfx.libraryclient.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openjfx.libraryclient.model.User.Rol;
+
 import lombok.Getter;
 
 @Getter public enum Genre {
@@ -19,5 +24,16 @@ import lombok.Getter;
 	
 	private Genre(String genre) {
 		this.genre = genre;
+	}
+	
+	public static List<Genre> list() {
+		
+		List<Genre> genres = new ArrayList<>();
+		
+		for (Genre genre : Genre.values()) {
+			genres.add(genre);
+		}
+		
+		return genres;
 	}
 }
