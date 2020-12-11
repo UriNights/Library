@@ -64,7 +64,7 @@ public class JSonMapper {
 		
 		switch (model) {
 			case "author":
-				List<Author> authorList = objectMapper.readValue(input, new TypeReference<List<Author>>(){});
+				List<Author> authorList = (List<Author>) objectMapper.readValue(input, new TypeReference<List<Author>>(){});
 				return authorList;
 				
 			case "book":

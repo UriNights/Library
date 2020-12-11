@@ -3,7 +3,7 @@ package org.openjfx.libraryclient.model;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter public abstract class Person {
+@Getter @Setter public abstract class Person implements IsModel {
 	
 	private String name;
 	private String midName;

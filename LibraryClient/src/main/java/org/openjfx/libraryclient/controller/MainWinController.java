@@ -1,11 +1,14 @@
 package org.openjfx.libraryclient.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import org.openjfx.libraryclient.App;
 import org.openjfx.libraryclient.model.Author;
 import org.openjfx.libraryclient.model.Book;
 import org.openjfx.libraryclient.model.Genre;
+import org.openjfx.libraryclient.model.Library;
 import org.openjfx.libraryclient.model.User;
 import org.openjfx.libraryclient.model.User.Rol;
 import org.openjfx.libraryclient.service.MainWinService;
@@ -17,11 +20,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 
 public class MainWinController {
@@ -52,14 +56,19 @@ public class MainWinController {
 	@FXML private JFXTextField txtUserNick;
 	@FXML private JFXTextField txtUserPassword;
 	@FXML private ComboBox<Rol> rolList;
-	@FXML private TableView<User> usersTable;
 	@FXML private JFXButton addUserBtn;
+	@FXML private JFXButton delUserBtn;
+	@FXML private TableView<User> usersTable;
+	@FXML private TableColumn<String, String> firstNameCol;
+	ObservableList<User> observListUsers;
 	
 	@FXML private JFXButton librariesBtn;
 	@FXML private Pane librariesPanel;
 	@FXML private JFXTextField txtLibName;
 	@FXML private JFXTextField txtLibLocation;
 	@FXML private JFXButton addLibBtn;
+	@FXML private TableView<Library> libTable;
+	ObservableList<Library> observListLibraries;
 	
 	@FXML private JFXButton booksBtn;
 	@FXML private Pane booksPanel;
@@ -68,8 +77,10 @@ public class MainWinController {
 	@FXML private JFXTextField txtISBN;
 	@FXML private JFXTextField txtPages;
 	@FXML private ComboBox<Genre> genreList;
+	@FXML private ComboBox<Library> librariesList;
 	@FXML private TableView<Book> booksTable;
 	@FXML private JFXButton addBookBtn;
+	ObservableList<Book> observListBooks;
 	
 	@FXML private JFXButton authorsBtn;
 	@FXML private Pane authorsPanel;
@@ -77,12 +88,14 @@ public class MainWinController {
 	@FXML private JFXTextField txtAuthorMidname;
 	@FXML private JFXTextField txtAuthorLastname;
 	@FXML private JFXButton addAuthorBtn;
+	@FXML private TableView<Author> authorsTable;
+	ObservableList<Author> observListAuthors;
 
 	private JFXButton activeBtn;
 	private Pane activePanel;
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws IOException {
 
 		this.mainWinService = new MainWinService();
 
@@ -108,6 +121,20 @@ public class MainWinController {
 		
 		ObservableList<Genre> observListGenres = FXCollections.observableArrayList(Genre.list());
 		this.genreList.setItems(observListGenres);
+		
+		observListUsers = FXCollections.observableArrayList(new ArrayList<User>());
+		usersTable.setItems(observListUsers);
+		this.mainWinService.listUsers(observListUsers);
+		
+		observListLibraries= FXCollections.observableArrayList(new ArrayList<Library>());
+		libTable.setItems(observListLibraries);
+		librariesList.setItems(observListLibraries);
+		this.mainWinService.listLibraries(observListLibraries);
+		
+		observListAuthors = FXCollections.observableArrayList(new ArrayList<Author>());
+		authorsTable.setItems(observListAuthors);
+		authorsList.setItems(observListAuthors);
+		this.mainWinService.listAuthors(observListAuthors);
 	}
 
 	
@@ -143,7 +170,6 @@ public class MainWinController {
 	@FXML
 	private void usersClick() throws IOException {
 		this.menuBtnAction(usersBtn, usersPanel);
-		this.mainWinService.listUsers(this.usersTable);
 	}
 	
 	@FXML
@@ -192,6 +218,139 @@ public class MainWinController {
 			user.setRol(this.rolList.getValue());
 			
 			this.mainWinService.addNewUser(user);
+			observListUsers.add(user);
+		}
+	}
+	
+	@FXML
+	private void delUser() throws IOException {
+
+		User user = usersTable.getSelectionModel().getSelectedItem();
+		if (user == null) {
+			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Delete User");
+			alert.setHeaderText("Select one user from the table.");
+			alert.showAndWait();
+		} else {
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete User");
+			alert.setHeaderText("Careful! You will delete an user.");
+			alert.setContentText("User: " + user.getName() + " " + user.getMidName() + " " + user.getLastName());
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				this.mainWinService.deleteUser(user);
+				observListUsers.remove(user);
+			} else {
+				return;
+			}
+		}
+	}
+	
+	// Libraries menu
+	@FXML
+	private void addNewLibrary() throws IOException {
+
+		if (this.txtLibName.getText().isBlank() || this.txtLibLocation.getText().isBlank()) {
+			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Some camp/s are empty!");
+			alert.setHeaderText("Please, fill all the fields.");
+			alert.showAndWait();
+		} else {
+			
+			Library library = new Library(this.txtLibName.getText(), this.txtLibLocation.getText());
+			
+			this.mainWinService.addNewLibrary(library);
+			observListLibraries.add(library);
+		}
+	}
+	
+	@FXML
+	private void deleteLibrary() throws IOException {
+
+		Library library = libTable.getSelectionModel().getSelectedItem();
+		if (library == null) {
+			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Delete Library");
+			alert.setHeaderText("Select a library from the table.");
+			alert.showAndWait();
+		} else {
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Library");
+			alert.setHeaderText("Careful! You will delete a library.");
+			alert.setContentText("Library: " + library.getName() + ", " + library.getLocation());
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				this.mainWinService.deleteLibrary(library);
+				observListLibraries.remove(library);
+			} else {
+				return;
+			}
+		}
+	}
+	
+	// Books menu
+	@FXML
+	private void addNewBook() throws IOException {
+		
+	}
+	
+	@FXML
+	private void deleteBook() throws IOException {
+		
+	}
+	
+	// Authors menu
+	@FXML
+	private void addNewAuthor() throws IOException {
+
+		if (this.txtAuthorName.getText().isBlank()
+				|| this.txtAuthorMidname.getText().isBlank()
+				|| this.txtAuthorLastname.getText().isBlank()) {
+			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Some camp/s are empty!");
+			alert.setHeaderText("Please, fill all the fields.");
+			alert.showAndWait();
+		} else {
+			
+			Author author = new Author(this.txtAuthorName.getText(), this.txtAuthorMidname.getText(), this.txtAuthorLastname.getText(), null);
+			
+			this.mainWinService.addNewAuthor(author);
+			observListAuthors.add(author);
+		}
+	}
+	
+	@FXML
+	private void deleteAuthor() throws IOException {
+
+		Author author = authorsTable.getSelectionModel().getSelectedItem();
+		if (author == null) {
+			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Delete Author");
+			alert.setHeaderText("Select an author from the table.");
+			alert.showAndWait();
+		} else {
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Author");
+			alert.setHeaderText("Careful! You will delete an author.");
+			alert.setContentText("Author: " + author.getName() + " " + author.getMidName() + " " + author.getLastName());
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				this.mainWinService.deleteAuthor(author);
+				observListAuthors.remove(author);
+			} else {
+				return;
+			}
 		}
 	}
 }

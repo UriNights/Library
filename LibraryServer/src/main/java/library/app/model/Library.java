@@ -31,7 +31,7 @@ import lombok.Setter;
 	@Column(name = "LOCATION", nullable = false, length = 40)
 	private String location;
 	
-	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "library")
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "library")
 	private List<Book> books;
 	
 	protected Library() {

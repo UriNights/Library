@@ -45,7 +45,7 @@ import lombok.Setter;
 	@Column(name = "AGE", nullable = false)
 	private int age;
 	
-	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Lending> lendings;
 	
 	public User() {

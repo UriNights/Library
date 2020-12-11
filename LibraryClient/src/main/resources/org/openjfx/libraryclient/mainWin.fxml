@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -19,258 +20,428 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.libraryclient.controller.MainWinController">
-   <top>
-      <GridPane style="-fx-background-color: gold;" styleClass="grid" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="userName">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
-            <Label fx:id="isAdmin" layoutX="20.0" layoutY="17.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Admin" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <padding>
-                  <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
-               </padding>
-            </Label>
-         </children>
-         <padding>
-            <Insets left="10.0" right="5.0" />
-         </padding>
-      </GridPane>
-   </top>
-   <left>
-      <VBox prefWidth="120.0" spacing="1.0" style="-fx-background-color: black;" styleClass="leftcolumn" BorderPane.alignment="CENTER">
-         <children>
-            <JFXButton fx:id="activeLendingBtn" maxWidth="1.7976931348623157E308" onMouseClicked="#activeLendingClick" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="Active Lendings">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="pastLendingBtn" layoutX="10.0" layoutY="15.0" maxWidth="1.7976931348623157E308" onMouseClicked="#pastLendingClick" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="Past Lendings" />
-            <JFXButton fx:id="newLendingBtn" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" onMouseClicked="#newLendingClick" ripplerFill="WHITE" style="-fx-background-color: gold; -fx-background-radius: 0;" text="New Lending">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></JFXButton>
-            <VBox fx:id="adminBtns" alignment="CENTER" spacing="1.0" style="-fx-background-color: BLACK;" visible="false">
-               <children>
-                  <Separator prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <JFXButton fx:id="usersBtn" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#usersClick" style="-fx-background-color: WHITE; -fx-background-radius: 0;" text="Users">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="librariesBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" onMouseClicked="#librariesClick" style="-fx-background-color: WHITE; -fx-background-radius: 0;" text="Libraries" />
-                  <JFXButton fx:id="booksBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" onMouseClicked="#booksClick" style="-fx-background-color: WHITE; -fx-background-radius: 0;" text="Books" />
-                  <JFXButton fx:id="authorsBtn" contentDisplay="CENTER" layoutX="10.0" layoutY="76.0" maxWidth="1.7976931348623157E308" onMouseClicked="#authorsClick" style="-fx-background-color: WHITE; -fx-background-radius: 0;" text="Authors" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </VBox>
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <StackPane BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane fx:id="lendPanel" style="-fx-background-color: white;">
-               <children>
-                  <TableView fx:id="lendTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn prefWidth="342.0" text="Title" />
-                      <TableColumn prefWidth="150.0" text="Author" />
-                        <TableColumn prefWidth="95.0" text="Lended" />
-                        <TableColumn prefWidth="92.0" text="Return" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <VBox fx:id="newLendPanel" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
-               <children>
-                  <HBox spacing="20.0">
-                     <children>
-                        <JFXTextField focusColor="#ffd400" prefWidth="320.0" promptText="Title" unFocusColor="#999999" />
-                        <JFXTextField focusColor="#ffd400" prefWidth="220.0" promptText="Author" unFocusColor="#999999" />
-                        <JFXButton ripplerFill="WHITE" style="-fx-background-color: gold;" text="Find!" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <TableView fx:id="findedBooksTable" VBox.vgrow="SOMETIMES">
-                    <columns>
-                      <TableColumn prefWidth="351.0" text="Title" />
-                      <TableColumn prefWidth="239.0" text="Author" />
-                        <TableColumn prefWidth="89.0" text="Availability" />
-                    </columns>
-                  </TableView>
-               </children>
-            </VBox>
-            <VBox fx:id="usersPanel" alignment="TOP_RIGHT" style="-fx-background-color: white;">
-               <children>
-                  <FlowPane vgap="10.0">
-                     <children>
-                        <JFXTextField fx:id="txtUserName" focusColor="#ffd900" promptText="name" />
-                        <JFXTextField fx:id="txtUserMidname" focusColor="#ffd900" layoutX="10.0" layoutY="10.0" promptText="midname" />
-                        <JFXTextField fx:id="txtUserLastname" focusColor="#ffd900" layoutX="10.0" layoutY="10.0" promptText="lastname" />
-                        <JFXTextField fx:id="txtUserDni" focusColor="#ffd900" layoutX="280.0" layoutY="10.0" promptText="DNI">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                        <JFXTextField fx:id="txtUserAge" focusColor="#ffd900" layoutX="280.0" layoutY="10.0" prefWidth="50.0" promptText="age">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                        <JFXTextField fx:id="txtUserNick" focusColor="#ffd900" layoutX="10.0" layoutY="10.0" promptText="nick" />
-                        <JFXTextField fx:id="txtUserPassword" focusColor="#ffd900" layoutX="10.0" layoutY="35.0" promptText="password">
-                           <FlowPane.margin>
-                              <Insets left="10.0" />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                        <ComboBox fx:id="rolList" promptText="rol" style="-fx-background-color: gold;">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </ComboBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </FlowPane>
-                  <JFXButton fx:id="addUserBtn" onAction="#addNewUser" style="-fx-background-color: GOLD;" text="Add New User">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <TableView fx:id="usersTable" VBox.vgrow="SOMETIMES">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Name" />
-                      <TableColumn prefWidth="102.0" text="Midname" />
-                        <TableColumn prefWidth="98.0" text="Lastname" />
-                        <TableColumn prefWidth="128.0" text="DNI" />
-                        <TableColumn prefWidth="49.0" text="age" />
-                        <TableColumn prefWidth="112.0" text="nick" />
-                        <TableColumn prefWidth="115.0" text="rol" />
-                    </columns>
-                  </TableView>
-               </children></VBox>
-            <VBox fx:id="librariesPanel" alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;">
-               <children>
-                  <FlowPane vgap="10.0">
-                     <children>
-                        <JFXTextField fx:id="txtLibName" focusColor="#ffd900" prefWidth="200.0" promptText="name" />
-                        <JFXTextField fx:id="txtLibLocation" focusColor="#ffd900" layoutX="280.0" layoutY="10.0" promptText="location">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </FlowPane>
-                  <JFXButton fx:id="addLibBtn" onAction="#addNewUser" style="-fx-background-color: GOLD;" text="Add New Library">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <TableView fx:id="libTable" maxHeight="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
-                     <columns>
-                        <TableColumn maxWidth="398.0" minWidth="-1.0" prefWidth="366.0" text="Name" />
-                        <TableColumn prefWidth="206.0" text="Location" />
-                        <TableColumn prefWidth="108.0" text="Total Books" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
-            <VBox fx:id="booksPanel" alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;">
-               <children>
-                  <FlowPane vgap="10.0">
-                     <children>
-                        <JFXTextField fx:id="txtTitle" focusColor="#ffd900" prefWidth="250.0" promptText="title" />
-                        <ComboBox fx:id="authorsList" prefWidth="200.0" promptText="authors" style="-fx-background-color: gold;">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </ComboBox>
-                        <JFXTextField fx:id="txtISBN" focusColor="#ffd900" layoutX="280.0" layoutY="10.0" prefWidth="200.0" promptText="ISBN">
-                           <FlowPane.margin>
-                              <Insets />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                        <JFXTextField fx:id="txtPages" focusColor="#ffd900" layoutX="10.0" layoutY="45.0" prefWidth="50.0" promptText="pages">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </JFXTextField>
-                        <ComboBox fx:id="genreList" layoutX="280.0" layoutY="10.0" prefWidth="150.0" promptText="genre" style="-fx-background-color: gold;">
-                           <FlowPane.margin>
-                              <Insets left="20.0" />
-                           </FlowPane.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="librariesList" layoutX="300.0" layoutY="45.0" prefWidth="300.0" promptText="library" style="-fx-background-color: gold;" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </FlowPane>
-                  <JFXButton fx:id="addBookBtn" onAction="#addNewUser" style="-fx-background-color: GOLD;" text="Add New Book">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <TableView fx:id="booksTable" maxHeight="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
-                     <columns>
-                        <TableColumn maxWidth="398.0" minWidth="-1.0" prefWidth="246.0" text="Title" />
-                        <TableColumn prefWidth="316.0" text="Authors" />
-                        <TableColumn prefWidth="118.0" text="Genre" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
-            <VBox fx:id="authorsPanel" alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;">
-               <children>
-                  <FlowPane vgap="10.0">
-                     <children>
-                        <JFXTextField fx:id="txtAuthorName" focusColor="#ffd900" promptText="name" />
-                        <JFXTextField fx:id="txtAuthorMidname" focusColor="#ffd900" layoutX="10.0" layoutY="10.0" promptText="midname" />
-                        <JFXTextField fx:id="txtAuthorLastname" focusColor="#ffd900" layoutX="10.0" layoutY="10.0" promptText="lastname" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </FlowPane>
-                  <JFXButton fx:id="addAuthorBtn" onAction="#addNewUser" style="-fx-background-color: GOLD;" text="Add New Author">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <TableView fx:id="authorsTable" VBox.vgrow="SOMETIMES">
-                     <columns>
-                        <TableColumn prefWidth="130.0" text="Name" />
-                        <TableColumn prefWidth="180.0" text="Midname" />
-                        <TableColumn prefWidth="180.0" text="Lastname" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-   </center>
+<BorderPane prefWidth="800.0"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="org.openjfx.libraryclient.controller.MainWinController">
+	<top>
+		<GridPane style="-fx-background-color: gold;"
+			styleClass="grid" BorderPane.alignment="CENTER">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES"
+					minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints halignment="RIGHT"
+					hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0"
+					vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label fx:id="userName">
+					<font>
+						<Font name="System Bold" size="12.0" />
+					</font>
+				</Label>
+				<Label fx:id="isAdmin" layoutX="20.0" layoutY="17.0"
+					style="-fx-background-color: white; -fx-background-radius: 5;"
+					text="Admin" visible="false" GridPane.columnIndex="1">
+					<font>
+						<Font name="System Bold" size="12.0" />
+					</font>
+					<padding>
+						<Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+					</padding>
+				</Label>
+			</children>
+			<padding>
+				<Insets left="10.0" right="5.0" />
+			</padding>
+		</GridPane>
+	</top>
+	<left>
+		<VBox prefWidth="120.0" spacing="1.0"
+			style="-fx-background-color: black;" styleClass="leftcolumn"
+			BorderPane.alignment="CENTER">
+			<children>
+				<JFXButton fx:id="activeLendingBtn"
+					maxWidth="1.7976931348623157E308"
+					onMouseClicked="#activeLendingClick" ripplerFill="WHITE"
+					style="-fx-background-color: gold; -fx-background-radius: 0;"
+					text="Active Lendings">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</JFXButton>
+				<JFXButton fx:id="pastLendingBtn" layoutX="10.0"
+					layoutY="15.0" maxWidth="1.7976931348623157E308"
+					onMouseClicked="#pastLendingClick" ripplerFill="WHITE"
+					style="-fx-background-color: gold; -fx-background-radius: 0;"
+					text="Past Lendings" />
+				<JFXButton fx:id="newLendingBtn" layoutX="10.0"
+					layoutY="50.0" maxWidth="1.7976931348623157E308"
+					onMouseClicked="#newLendingClick" ripplerFill="WHITE"
+					style="-fx-background-color: gold; -fx-background-radius: 0;"
+					text="New Lending">
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</JFXButton>
+				<VBox fx:id="adminBtns" alignment="CENTER" spacing="1.0"
+					style="-fx-background-color: BLACK;" visible="false">
+					<children>
+						<Separator prefWidth="200.0">
+							<VBox.margin>
+								<Insets bottom="10.0" />
+							</VBox.margin>
+						</Separator>
+						<JFXButton fx:id="usersBtn" contentDisplay="CENTER"
+							maxWidth="1.7976931348623157E308" onMouseClicked="#usersClick"
+							style="-fx-background-color: WHITE; -fx-background-radius: 0;"
+							text="Users">
+							<VBox.margin>
+								<Insets />
+							</VBox.margin>
+						</JFXButton>
+						<JFXButton fx:id="librariesBtn" contentDisplay="CENTER"
+							layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308"
+							onMouseClicked="#librariesClick"
+							style="-fx-background-color: WHITE; -fx-background-radius: 0;"
+							text="Libraries" />
+						<JFXButton fx:id="booksBtn" contentDisplay="CENTER"
+							layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308"
+							onMouseClicked="#booksClick"
+							style="-fx-background-color: WHITE; -fx-background-radius: 0;"
+							text="Books" />
+						<JFXButton fx:id="authorsBtn" contentDisplay="CENTER"
+							layoutX="10.0" layoutY="76.0" maxWidth="1.7976931348623157E308"
+							onMouseClicked="#authorsClick"
+							style="-fx-background-color: WHITE; -fx-background-radius: 0;"
+							text="Authors" />
+					</children>
+					<VBox.margin>
+						<Insets top="10.0" />
+					</VBox.margin>
+				</VBox>
+			</children>
+		</VBox>
+	</left>
+	<center>
+		<StackPane BorderPane.alignment="CENTER">
+			<children>
+				<AnchorPane fx:id="lendPanel"
+					style="-fx-background-color: white;">
+					<children>
+						<TableView fx:id="lendTable"
+							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+							<columns>
+								<TableColumn prefWidth="342.0" text="Title" />
+								<TableColumn prefWidth="150.0" text="Author" />
+								<TableColumn prefWidth="95.0" text="Lended" />
+								<TableColumn prefWidth="92.0" text="Return" />
+							</columns>
+						</TableView>
+					</children>
+				</AnchorPane>
+				<VBox fx:id="newLendPanel" prefHeight="200.0" prefWidth="100.0"
+					style="-fx-background-color: white;">
+					<children>
+						<HBox spacing="20.0">
+							<children>
+								<JFXTextField focusColor="#ffd400"
+									prefWidth="320.0" promptText="Title" unFocusColor="#999999" />
+								<JFXTextField focusColor="#ffd400"
+									prefWidth="220.0" promptText="Author" unFocusColor="#999999" />
+								<JFXButton ripplerFill="WHITE"
+									style="-fx-background-color: gold;" text="Find!" />
+							</children>
+							<VBox.margin>
+								<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+							</VBox.margin>
+						</HBox>
+						<TableView fx:id="findedBooksTable"
+							VBox.vgrow="SOMETIMES">
+							<columns>
+								<TableColumn prefWidth="351.0" text="Title" />
+								<TableColumn prefWidth="239.0" text="Author" />
+								<TableColumn prefWidth="89.0" text="Availability" />
+							</columns>
+						</TableView>
+					</children>
+				</VBox>
+				<VBox fx:id="usersPanel" alignment="TOP_RIGHT"
+					style="-fx-background-color: white;">
+					<children>
+						<FlowPane vgap="10.0">
+							<children>
+								<JFXTextField fx:id="txtUserName"
+									focusColor="#ffd900" promptText="name" />
+								<JFXTextField fx:id="txtUserMidname"
+									focusColor="#ffd900" layoutX="10.0" layoutY="10.0"
+									promptText="midname" />
+								<JFXTextField fx:id="txtUserLastname"
+									focusColor="#ffd900" layoutX="10.0" layoutY="10.0"
+									promptText="lastname" />
+								<JFXTextField fx:id="txtUserDni"
+									focusColor="#ffd900" layoutX="280.0" layoutY="10.0"
+									promptText="DNI">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</JFXTextField>
+								<JFXTextField fx:id="txtUserAge"
+									focusColor="#ffd900" layoutX="280.0" layoutY="10.0"
+									prefWidth="50.0" promptText="age">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</JFXTextField>
+								<JFXTextField fx:id="txtUserNick"
+									focusColor="#ffd900" layoutX="10.0" layoutY="10.0"
+									promptText="nick" />
+								<JFXTextField fx:id="txtUserPassword"
+									focusColor="#ffd900" layoutX="10.0" layoutY="35.0"
+									promptText="password">
+									<FlowPane.margin>
+										<Insets left="10.0" />
+									</FlowPane.margin>
+								</JFXTextField>
+								<ComboBox fx:id="rolList" promptText="rol"
+									style="-fx-background-color: gold;">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</ComboBox>
+							</children>
+							<VBox.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+						</FlowPane>
+						<HBox alignment="TOP_RIGHT" spacing="10.0">
+							<children>
+								<JFXButton fx:id="addUserBtn1" onAction="#addNewUser"
+									style="-fx-background-color: GOLD;" text="Add New User" />
+								<JFXButton fx:id="delUserBtn" onAction="#delUser"
+									style="-fx-background-color: GOLD;" text="Delete User" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" right="5.0" />
+							</padding>
+						</HBox>
+						<TableView fx:id="usersTable" VBox.vgrow="SOMETIMES">
+							<columns>
+								<TableColumn fx:id="firstNameCol" prefWidth="75.0"
+									text="Name">
+									<cellValueFactory>
+										<PropertyValueFactory property="name" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="102.0" text="Midname">
+									<cellValueFactory>
+										<PropertyValueFactory property="midName" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="98.0" text="Lastname">
+									<cellValueFactory>
+										<PropertyValueFactory property="lastName" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="128.0" text="DNI">
+									<cellValueFactory>
+										<PropertyValueFactory property="dni" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="49.0" text="age">
+									<cellValueFactory>
+										<PropertyValueFactory property="age" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="112.0" text="nick">
+									<cellValueFactory>
+										<PropertyValueFactory property="nick" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="115.0" text="rol">
+									<cellValueFactory>
+										<PropertyValueFactory property="rol" />
+									</cellValueFactory>
+								</TableColumn>
+							</columns>
+							<sortOrder>
+								<fx:reference source="firstNameCol" />
+							</sortOrder>
+						</TableView>
+					</children>
+				</VBox>
+				<VBox fx:id="librariesPanel" alignment="TOP_RIGHT"
+					layoutX="10.0" layoutY="10.0" style="-fx-background-color: white;">
+					<children>
+						<FlowPane vgap="10.0">
+							<children>
+								<JFXTextField fx:id="txtLibName"
+									focusColor="#ffd900" prefWidth="200.0" promptText="name" />
+								<JFXTextField fx:id="txtLibLocation"
+									focusColor="#ffd900" layoutX="280.0" layoutY="10.0"
+									promptText="location">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</JFXTextField>
+							</children>
+							<VBox.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+						</FlowPane>
+						<HBox alignment="TOP_RIGHT" spacing="10.0">
+							<children>
+								<JFXButton fx:id="addLibBtn" onAction="#addNewLibrary"
+									style="-fx-background-color: GOLD;" text="Add New Library" />
+								<JFXButton fx:id="delLibBtn" layoutX="580.0"
+									layoutY="10.0" onAction="#deleteLibrary"
+									style="-fx-background-color: GOLD;" text="Delete Library" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" right="5.0" />
+							</padding>
+						</HBox>
+						<TableView fx:id="libTable"
+							maxHeight="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
+							<columns>
+								<TableColumn maxWidth="398.0" minWidth="-1.0"
+									prefWidth="366.0" text="Name">
+									<cellValueFactory>
+										<PropertyValueFactory property="name" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="206.0" text="Location">
+									<cellValueFactory>
+										<PropertyValueFactory property="location" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="108.0" text="Total Books" />
+							</columns>
+						</TableView>
+					</children>
+				</VBox>
+				<VBox fx:id="booksPanel" alignment="TOP_RIGHT" layoutX="10.0"
+					layoutY="10.0" style="-fx-background-color: white;">
+					<children>
+						<FlowPane vgap="10.0">
+							<children>
+								<JFXTextField fx:id="txtTitle" focusColor="#ffd900"
+									prefWidth="250.0" promptText="title" />
+								<ComboBox fx:id="authorsList" prefWidth="200.0"
+									promptText="authors" style="-fx-background-color: gold;">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</ComboBox>
+								<JFXTextField fx:id="txtISBN" focusColor="#ffd900"
+									layoutX="280.0" layoutY="10.0" prefWidth="200.0"
+									promptText="ISBN">
+									<FlowPane.margin>
+										<Insets />
+									</FlowPane.margin>
+								</JFXTextField>
+								<JFXTextField fx:id="txtPages" focusColor="#ffd900"
+									layoutX="10.0" layoutY="45.0" prefWidth="50.0"
+									promptText="pages">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</JFXTextField>
+								<ComboBox fx:id="genreList" layoutX="280.0"
+									layoutY="10.0" prefWidth="150.0" promptText="genre"
+									style="-fx-background-color: gold;">
+									<FlowPane.margin>
+										<Insets left="20.0" />
+									</FlowPane.margin>
+								</ComboBox>
+								<ComboBox fx:id="librariesList" layoutX="300.0"
+									layoutY="45.0" prefWidth="300.0" promptText="library"
+									style="-fx-background-color: gold;" />
+							</children>
+							<VBox.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+						</FlowPane>
+						<HBox alignment="TOP_RIGHT" spacing="10.0">
+							<children>
+								<JFXButton fx:id="addBookBtn" onAction="#addNewBook"
+									style="-fx-background-color: GOLD;" text="Add New Book" />
+								<JFXButton fx:id="delBookBtn" layoutX="589.0"
+									layoutY="10.0" onAction="#deleteBook"
+									style="-fx-background-color: GOLD;" text="Delete Book" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" right="5.0" />
+							</padding>
+						</HBox>
+						<TableView fx:id="booksTable"
+							maxHeight="1.7976931348623157E308" VBox.vgrow="SOMETIMES">
+							<columns>
+								<TableColumn maxWidth="398.0" minWidth="-1.0"
+									prefWidth="246.0" text="Title" />
+								<TableColumn prefWidth="316.0" text="Authors" />
+								<TableColumn prefWidth="118.0" text="Genre" />
+							</columns>
+						</TableView>
+					</children>
+				</VBox>
+				<VBox fx:id="authorsPanel" alignment="TOP_RIGHT" layoutX="10.0"
+					layoutY="10.0" style="-fx-background-color: white;">
+					<children>
+						<FlowPane vgap="10.0">
+							<children>
+								<JFXTextField fx:id="txtAuthorName"
+									focusColor="#ffd900" promptText="name" />
+								<JFXTextField fx:id="txtAuthorMidname"
+									focusColor="#ffd900" layoutX="10.0" layoutY="10.0"
+									promptText="midname" />
+								<JFXTextField fx:id="txtAuthorLastname"
+									focusColor="#ffd900" layoutX="10.0" layoutY="10.0"
+									promptText="lastname" />
+							</children>
+							<VBox.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+						</FlowPane>
+						<HBox alignment="TOP_RIGHT" spacing="10.0">
+							<children>
+								<JFXButton fx:id="addAuthorBtn"
+									onAction="#addNewAuthor" style="-fx-background-color: GOLD;"
+									text="Add New Author" />
+								<JFXButton fx:id="delAuthorBtn" layoutX="580.0"
+									layoutY="10.0" onAction="#deleteAuthor"
+									style="-fx-background-color: GOLD;" text="Delete Author" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" right="5.0" />
+							</padding>
+						</HBox>
+						<TableView fx:id="authorsTable" VBox.vgrow="SOMETIMES">
+							<columns>
+								<TableColumn prefWidth="130.0" text="Name">
+									<cellValueFactory>
+										<PropertyValueFactory property="name" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="180.0" text="Midname">
+									<cellValueFactory>
+										<PropertyValueFactory property="midName" />
+									</cellValueFactory>
+								</TableColumn>
+								<TableColumn prefWidth="180.0" text="Lastname">
+									<cellValueFactory>
+										<PropertyValueFactory property="lastName" />
+									</cellValueFactory>
+								</TableColumn>
+							</columns>
+						</TableView>
+					</children>
+				</VBox>
+			</children>
+		</StackPane>
+	</center>
 </BorderPane>

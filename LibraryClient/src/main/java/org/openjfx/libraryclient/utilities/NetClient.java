@@ -15,7 +15,7 @@ public class NetClient {
 		
 		URL obj = new URL("http://localhost:8080/webapi" + URI);
 		HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
-		postConnection.setRequestMethod("POST");
+		postConnection.setRequestMethod("GET");
 		postConnection.setRequestProperty("User-Agent", "myLibrary");
 		postConnection.setRequestProperty("UserHostName", "NotDefined");
 		postConnection.setRequestProperty("Content-Type", "application/json");
@@ -23,6 +23,7 @@ public class NetClient {
 		if (postConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
 			InputStream input = postConnection.getInputStream();
+			
 			List<? extends IsModel> objectList = JSonMapper.JSonInStreamToModelList(input, modelToReturn);
 			input.close();
 			
@@ -55,7 +56,7 @@ public class NetClient {
 			InputStream input = postConnection.getInputStream();
 			IsModel object = JSonMapper.JSonInStreamToModel(input, modelToReturn);
 			input.close();
-			
+
 			return object;
 
 		} else {

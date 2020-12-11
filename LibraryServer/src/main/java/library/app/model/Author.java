@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,10 +22,19 @@ import lombok.Setter;
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long _id;
 	
+	@JsonIgnore
 	@ManyToMany
 	private List<Book> books;
 	
+	public Author() {
+	}
+	
 	public Author(String name, String midName, String lastName) {
 		super(name, midName, lastName);
+	}
+	
+	public Author(String name, String midName, String lastName, List<Book> books) {
+		super(name, midName, lastName);
+		this.books = books;
 	}
 }
